@@ -4,7 +4,7 @@ from time import sleep
 from typing import List, Set
 
 
-FILE_PATH_WORDS = path.abspath("words.txt")
+FILE_PATH_WORDS = path.abspath("../words.txt")
 LIVES = 10
 
 
