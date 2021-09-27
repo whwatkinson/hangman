@@ -21,8 +21,26 @@ func random_word_generator() string {
 	return word
 }
 
-var word = random_word_generator()
-
 func main() {
-	fmt.Printf("%v", word)
+	var word = random_word_generator()
+	var wordLength int = len(word)
+	var word_chars = make([]string, wordLength)
+
+	fmt.Printf("%v\n", word_chars)
+
+	for i := 0; i < wordLength; i++ {
+		var underScore string = string('_')
+		word_chars[i] = underScore
+	}
+
+	fmt.Printf("%v\n", word_chars)
+
+	var allLetters string = "abcdefghijklmnopqrstuvwxyz-"
+	var lettersRemaining = make([]string, len(allLetters))
+
+	for i := 0; i < len(allLetters); i++ {
+		lettersRemaining[i] = string(allLetters[i])
+	}
+
+	fmt.Printf("%v", lettersRemaining)
 }
