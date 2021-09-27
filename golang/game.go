@@ -15,7 +15,7 @@ func random_word_generator() string {
 	var wordsListLength int = len(words)
 	var randomNumber = rand.Intn(wordsListLength)
 
-	fmt.Printf("%v %T", words, words)
+	// fmt.Printf("%v %T", words, words)
 
 	var word string = words[randomNumber]
 	return word
@@ -24,5 +24,5 @@ func random_word_generator() string {
 var word = random_word_generator()
 
 func main() {
-	// fmt.Printf("%v %T", word, word)
+	fmt.Printf("%v", word)
 }
