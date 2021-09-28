@@ -125,7 +125,8 @@ def hangman():
     lives = LIVES
     round_number = 0
     word_blank = ["_" for _ in range(len(word))]
-    right_guesses = wrong_guesses = set()
+    right_guesses = set()
+    wrong_guesses = set()
 
     # Start and welcome
     print("******************")
@@ -137,6 +138,7 @@ def hangman():
         # Win check
         if "_" not in word_blank:
             print("Congratulations, you won!")
+            print(f"The word was {word}!")
             break
 
         # Game over check
@@ -155,6 +157,7 @@ def hangman():
         # TODO board
         print(f"You have {lives} live{'s' if lives > 1 else ''} left\n")
         print(f"word:      {word_blank}\n")
+        print(f"wrong:     {sorted(list(wrong_guesses))}")
         print(f"letters:   {sorted(letters_remaining)}\n")
 
         player_guess = input("Have a guess: ").lower()
@@ -172,6 +175,7 @@ def hangman():
                 wrong_guesses,
             )
         else:
+            sleep(1.5)
             continue
 
         sleep(1.5)

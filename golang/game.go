@@ -9,6 +9,9 @@ import (
 
 const filePathWords string = "../words.txt"
 
+var lives int = 0
+var playing bool = true
+
 func random_word_generator() string {
 	var wordsString string = "apple pop snap cat rocks tiple"
 	var words = strings.Fields(wordsString)
@@ -22,7 +25,7 @@ func random_word_generator() string {
 	return word
 }
 
-func main() bool {
+func game() {
 	// get word
 	var word = random_word_generator()
 	var wordLength int = len(word)
@@ -46,23 +49,25 @@ func main() bool {
 
 	// set up game and counters
 	// var roundNumber int = 0
-	var lives int = 10
 	// var rightguess = make([]string, 27)
 	// var wrongGuess = make([]string, 27)
 
-	fmt.Printf("******************")
-	fmt.Printf("Welcome to Hangman")
+	fmt.Printf("******************\n")
+	fmt.Printf("Welcome to Hangman\n")
 	fmt.Printf("******************\n")
 
 	if lives < 0 {
 		fmt.Printf("The word I was thinking of was: %v", word)
+		playing = false
 	} else {
-		fmt.Printf("Lives remaing: %v", lives)
-		fmt.Printf("*********")
-		fmt.Printf("GAME OVER")
-		fmt.Printf("*********\n")
-		return false
+		fmt.Printf("The word I was thinking of was: %v", word)
+		playing = true
 	}
 
-	return true
 }
+
+// func main() {
+// 	for playing := true; playing == false; playing = true {
+// 		game()
+// 	}
+// }
