@@ -64,25 +64,25 @@ func removeStringInSlice(
 
 func preCheckScreen(
 	playerGuess string,
-	rightGuess []string,
-	wrongGuess []string,
+	rightGuesses []string,
+	wrongGuesses []string,
 	lettersRemaining []string,
 ) bool {
 
 	// Same letter already guess and right
-	if stringInSlice(playerGuess, rightGuess) {
+	if stringInSlice(playerGuess, rightGuesses) {
 		fmt.Printf("Already guessed, %v it was there\n", playerGuess)
 		return false
 	}
 
 	// Same letter already guess and wrong
-	if stringInSlice(playerGuess, wrongGuess) {
+	if stringInSlice(playerGuess, wrongGuesses) {
 		fmt.Printf("Already guessed, %v it was not there\n", playerGuess)
 		return false
 	}
 
 	// Not a recgnised charater
-	if stringInSlice(playerGuess, lettersRemaining) != true {
+	if !stringInSlice(playerGuess, lettersRemaining) {
 		fmt.Printf("input not recognised.\n")
 		return false
 	}
@@ -191,13 +191,26 @@ func main() {
 	fmt.Printf("******************\n")
 
 	// This is now the while loop
-	for lives > 0 {
+	for {
 
 		// VICTORY CHECK
-		if stringInSlice(string("_"), wordBlank) != true {
-			fmt.Printf("Congratulations, you won!\n")
+		if !stringInSlice(string("_"), wordBlank) {
+			fmt.Printf("\n\n\n*************************")
+			fmt.Printf("Congratulations, you won!")
+			fmt.Printf("*************************")
 			break
 		}
+
+		// GAME OVER CHECK
+		if lives == 0 {
+			fmt.Printf("\n\n\n*********")
+			fmt.Printf("GAME OVER")
+			fmt.Printf("*********")
+			fmt.Printf("The word I was thinking of was: %v\n", word)
+
+			break
+		}
+
 		// ROUND SETUP
 		roundNumber += 1
 		fmt.Printf("\n\n\n\n")
@@ -233,6 +246,4 @@ func main() {
 
 		time.Sleep(2 * time.Second)
 	}
-
-	fmt.Printf("The word I was thinking of was: %v\n", word)
 }
