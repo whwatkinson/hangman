@@ -35,7 +35,7 @@ def right_guess(
 
 def wrong_guess(
     player_guess: str, letters_remaining: Set[str], wrong_guesses: Set[str]
-) -> 1:
+) -> int:
     print(f"\n{player_guess} was not in the word\n")
     letters_remaining.remove(player_guess)
     wrong_guesses.add(player_guess)
@@ -74,7 +74,7 @@ def guess_check(
     word_blank: List[str],
     right_guesses: Set[str],
     wrong_guesses: Set[str],
-):
+) -> int:
 
     if player_guess in word_chars:
 
