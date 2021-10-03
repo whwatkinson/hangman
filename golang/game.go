@@ -13,7 +13,7 @@ var lives int = 10
 var playing bool = true
 
 func random_word_generator() string {
-	var wordsString string = "apple pop snap cat rocks tiple"
+	var wordsString string = "apple pop snap"
 	var words = strings.Fields(wordsString)
 	var wordsListLength int = len(words)
 
@@ -95,7 +95,7 @@ func wrongGuess(
 	playerGuess string,
 	lettersRemaining []string,
 	wrongGuesses []string,
-) int {
+) (int, []string) {
 	fmt.Printf("%v was not in the word\n", playerGuess)
 
 	for i, b := range lettersRemaining {
@@ -106,7 +106,7 @@ func wrongGuess(
 	lettersRemaining = removeStringInSlice(playerGuess, lettersRemaining)
 
 	wrongGuesses = append(wrongGuesses, playerGuess)
-	return -1
+	return -1, wrongGuesses
 }
 
 func rightGuess(
@@ -115,7 +115,7 @@ func rightGuess(
 	lettersRemaining []string,
 	wordBlank []string,
 	rightGuesses []string,
-) int {
+) (int, []string) {
 
 	fmt.Printf("%v was in the word\n", playerGuess)
 	lettersRemaining = removeStringInSlice(playerGuess, lettersRemaining)
@@ -128,7 +128,7 @@ func rightGuess(
 
 	rightGuesses = append(rightGuesses, playerGuess)
 
-	return 0
+	return 0, rightGuesses
 }
 
 func guessCheck(
@@ -138,10 +138,10 @@ func guessCheck(
 	wordBlank []string,
 	rightGuesses []string,
 	wrongGuesses []string,
-) int {
+) (int, []string, []string) {
 	var livesToRemove int = 0
 	if stringInSlice(playerGuess, wordChars) {
-		livesToRemove = rightGuess(
+		livesToRemove, rightGuesses = rightGuess(
 			playerGuess,
 			wordChars,
 			lettersRemaining,
@@ -149,13 +149,13 @@ func guessCheck(
 			rightGuesses,
 		)
 	} else {
-		livesToRemove = wrongGuess(
+		livesToRemove, wrongGuesses = wrongGuess(
 			playerGuess,
 			lettersRemaining,
 			wrongGuesses,
 		)
 	}
-	return livesToRemove
+	return livesToRemove, rightGuesses, wrongGuesses
 }
 
 func main() {
@@ -182,9 +182,9 @@ func main() {
 
 	// set up game and counters
 	var roundNumber int = 0
-	var rightGuesses = make([]string, 27)
-	// var wrongGuesses = make([]string, 27)
+	var rightGuesses []string
 	var wrongGuesses []string
+	// var wrongGuesses = make([]string, 27)
 
 	fmt.Printf("******************\n")
 	fmt.Printf("Welcome to Hangman\n")
@@ -195,9 +195,9 @@ func main() {
 
 		// VICTORY CHECK
 		if !stringInSlice(string("_"), wordBlank) {
-			fmt.Printf("\n\n\n*************************")
-			fmt.Printf("Congratulations, you won!")
-			fmt.Printf("*************************")
+			fmt.Printf("\n\n\n*************************\n")
+			fmt.Printf("Congratulations, you won!\n")
+			fmt.Printf("*************************\n")
 			break
 		}
 
@@ -220,9 +220,9 @@ func main() {
 
 		// TODO board of the gallows
 		fmt.Printf("You have %v live(s) remaining\n\n", lives)
-		fmt.Printf("word:      %v\n\n", wordBlank)
-		fmt.Printf("wrong:     %v\n\n", wrongGuesses)
-		fmt.Printf("letters:   %v\n\n", lettersRemaining)
+		fmt.Printf("word:                %v\n\n", wordBlank)
+		fmt.Printf("wrong guesses:       %v\n\n", wrongGuesses)
+		fmt.Printf("letters remaining:   %v\n\n", lettersRemaining)
 
 		// PLAYER INPUT
 		var playerGuess string
@@ -234,7 +234,9 @@ func main() {
 		var ok bool = preCheckScreen(playerGuess, rightGuesses, wrongGuesses, lettersRemaining)
 
 		if ok {
-			lives += guessCheck(
+			var livesToRemove int
+
+			livesToRemove, rightGuesses, wrongGuesses = guessCheck(
 				playerGuess,
 				wordChars,
 				lettersRemaining,
@@ -242,6 +244,7 @@ func main() {
 				rightGuesses,
 				wrongGuesses,
 			)
+			lives += livesToRemove
 		}
 
 		time.Sleep(2 * time.Second)
