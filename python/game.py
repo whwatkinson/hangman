@@ -4,6 +4,9 @@ from time import sleep
 from typing import List, Set
 
 
+from python.board import board
+
+
 FILE_PATH_WORDS = path.abspath("../words.txt")
 LIVES = 10
 
@@ -143,6 +146,8 @@ def hangman():
 
         # Game over check
         if lives == 0:
+            for row in board[lives]:
+                print(' '.join(row))
             print(f"The word I was thinking of was: {word}\n")
             print("*********")
             print("GAME OVER")
@@ -154,7 +159,11 @@ def hangman():
         print("*******")
         print(f"Round {round_number}")
         print("*******\n")
-        # TODO board
+
+        for row in board[lives]:
+            print(' '.join(row))
+
+
         print(f"You have {lives} live{'s' if lives > 1 else ''} left\n")
         print(f"word:      {word_blank}\n")
         print(f"wrong:     {sorted(list(wrong_guesses))}")

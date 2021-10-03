@@ -12,14 +12,11 @@ import (
 const filePathWords string = "/words.txt"
 
 var lives int = 10
-var playing bool = true
 
 func random_word_generator(filePath string) string {
 
 	pwd, _ := os.Getwd()
 	data, err := ioutil.ReadFile(pwd + filePath)
-
-	// data, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		fmt.Println("File reading error", err)
 	}
@@ -201,6 +198,7 @@ func main() {
 		if !stringInSlice(string("_"), wordBlank) {
 			fmt.Printf("\n\n\n*************************\n")
 			fmt.Printf("Congratulations, you won!\n")
+			fmt.Printf("The word I was think of was %v\n", word)
 			fmt.Printf("*************************\n")
 			break
 		}
