@@ -2,26 +2,31 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"math/rand"
+	"os"
 	"strings"
 	"time"
 )
 
-const filePathWords string = "../words.txt"
+const filePathWords string = "/words.txt"
 
 var lives int = 10
 var playing bool = true
 
-func random_word_generator() string {
-	var wordsString string = "apple pop snap"
-	var words = strings.Fields(wordsString)
-	var wordsListLength int = len(words)
+func random_word_generator(filePath string) string {
 
+	pwd, _ := os.Getwd()
+	data, err := ioutil.ReadFile(pwd + filePath)
+
+	// data, err := ioutil.ReadFile(filePath)
+	if err != nil {
+		fmt.Println("File reading error", err)
+	}
 	rand.Seed(time.Now().UnixNano())
-	var randomNumber = rand.Intn(wordsListLength)
-	var word string = words[randomNumber]
+	var words = strings.Fields(string(data))
+	var word string = words[rand.Intn(len(words))]
 
-	// fmt.Printf("%v %T\n", randomNumber, randomNumber)
 	return word
 }
 
@@ -52,14 +57,14 @@ func stringInSliceIndexes(
 
 func removeStringInSlice(
 	playerGuess string,
-	slice []string,
+	lettersRemaining []string,
 ) []string {
-	for i, b := range slice {
+	for i, b := range lettersRemaining {
 		if b == playerGuess {
-			slice[i] = " "
+			lettersRemaining[i] = " "
 		}
 	}
-	return slice
+	return lettersRemaining
 }
 
 func preCheckScreen(
@@ -119,7 +124,6 @@ func rightGuess(
 
 	fmt.Printf("%v was in the word\n", playerGuess)
 	lettersRemaining = removeStringInSlice(playerGuess, lettersRemaining)
-
 	var indexes []int = stringInSliceIndexes(playerGuess, wordChars)
 
 	for _, pos := range indexes {
@@ -160,7 +164,7 @@ func guessCheck(
 
 func main() {
 	// get word
-	var word = random_word_generator()
+	var word = random_word_generator(filePathWords)
 	var wordLength int = len(word)
 	var wordChars = make([]string, wordLength)
 	for i := 0; i < wordLength; i++ {
@@ -174,7 +178,7 @@ func main() {
 	}
 
 	// get remaining letters
-	var allLetters string = "abcdefghijklmnopqrstuvwxyz-"
+	var allLetters string = "abcdefghijklmnopqrstuvwxyz"
 	var lettersRemaining = make([]string, len(allLetters))
 	for i := 0; i < len(allLetters); i++ {
 		lettersRemaining[i] = string(allLetters[i])
@@ -247,6 +251,6 @@ func main() {
 			lives += livesToRemove
 		}
 
-		time.Sleep(2 * time.Second)
+		time.Sleep(1 * time.Second)
 	}
 }
