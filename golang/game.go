@@ -205,9 +205,9 @@ func main() {
 
 		// GAME OVER CHECK
 		if lives == 0 {
-			fmt.Printf("\n\n\n*********")
-			fmt.Printf("GAME OVER")
-			fmt.Printf("*********")
+			fmt.Printf("\n\n\n*********\n")
+			fmt.Printf("GAME OVER\n")
+			fmt.Printf("*********\n")
 			fmt.Printf("The word I was thinking of was: %v\n", word)
 
 			break
