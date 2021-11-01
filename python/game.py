@@ -4,6 +4,9 @@ from time import sleep
 from typing import List, Set
 
 
+from python.board import board
+
+
 FILE_PATH_WORDS = path.abspath("../words.txt")
 LIVES = 10
 
@@ -35,7 +38,7 @@ def right_guess(
 
 def wrong_guess(
     player_guess: str, letters_remaining: Set[str], wrong_guesses: Set[str]
-) -> 1:
+) -> int:
     print(f"\n{player_guess} was not in the word\n")
     letters_remaining.remove(player_guess)
     wrong_guesses.add(player_guess)
@@ -74,7 +77,7 @@ def guess_check(
     word_blank: List[str],
     right_guesses: Set[str],
     wrong_guesses: Set[str],
-):
+) -> int:
 
     if player_guess in word_chars:
 
@@ -125,7 +128,8 @@ def hangman():
     lives = LIVES
     round_number = 0
     word_blank = ["_" for _ in range(len(word))]
-    right_guesses = wrong_guesses = set()
+    right_guesses = set()
+    wrong_guesses = set()
 
     # Start and welcome
     print("******************")
@@ -137,10 +141,13 @@ def hangman():
         # Win check
         if "_" not in word_blank:
             print("Congratulations, you won!")
+            print(f"The word was {word}!")
             break
 
         # Game over check
         if lives == 0:
+            for row in board[lives]:
+                print(' '.join(row))
             print(f"The word I was thinking of was: {word}\n")
             print("*********")
             print("GAME OVER")
@@ -152,9 +159,14 @@ def hangman():
         print("*******")
         print(f"Round {round_number}")
         print("*******\n")
-        # TODO board
+
+        for row in board[lives]:
+            print(' '.join(row))
+
+
         print(f"You have {lives} live{'s' if lives > 1 else ''} left\n")
         print(f"word:      {word_blank}\n")
+        print(f"wrong:     {sorted(list(wrong_guesses))}")
         print(f"letters:   {sorted(letters_remaining)}\n")
 
         player_guess = input("Have a guess: ").lower()
@@ -172,6 +184,7 @@ def hangman():
                 wrong_guesses,
             )
         else:
+            sleep(1.5)
             continue
 
         sleep(1.5)
