@@ -73,13 +73,13 @@ func preCheckScreen(
 
 	// Same letter already guess and right
 	if stringInSlice(playerGuess, rightGuesses) {
-		fmt.Printf("Already guessed, %v it was there\n", playerGuess)
+		fmt.Printf("Already guessed %v, it was there\n", playerGuess)
 		return false
 	}
 
 	// Same letter already guess and wrong
 	if stringInSlice(playerGuess, wrongGuesses) {
-		fmt.Printf("Already guessed, %v it was not there\n", playerGuess)
+		fmt.Printf("Already guessed %v, it was not there\n", playerGuess)
 		return false
 	}
 
