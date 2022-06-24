@@ -128,7 +128,11 @@ function hangman() {
     console.log("letters:     %s\n", lettersRemaining.sort().join(' '))
 
 
-    var playerGuess: string = ''
+    var playerGuess: string = require('readline').createInterface({
+      input: process.stdin,
+      output: process.stdout
+    });
+
 
     var okToPlay: boolean = preCheckGuess(playerGuess, rightGuesses, wrongGuesses, lettersRemaining)
 
