@@ -16,6 +16,35 @@ function randomWordGenerator(filename: string): string {
 }
 
 
+function preCheckGuess(
+  playerGuess: string,
+  rightGuesses: String[],
+  wrongGuesses: string[],
+  lettersRemaining: string[]
+): boolean {
+
+  // Same letter already guessed and right
+  if (rightGuesses.includes(playerGuess)) {
+    console.log("Already guessed %s, it was in there.\n", playerGuess)
+    return false
+  }
+
+  // Same letter already guessed and wrong
+  if (wrongGuesses.includes(playerGuess)) {
+    console.log("Already guessed %s, it was not there.\n", playerGuess)
+    return false
+  }
+
+  // Not a recognised character
+  if (!lettersRemaining.includes(playerGuess)) {
+    console.log("input not recognised.\n")
+    return false
+  }
+
+  return true
+}
+
+
 function hangman() {
   let word: string = randomWordGenerator(FILE_PATH_WORDS)
   let wordChars: string[] = word.split("")
@@ -57,8 +86,8 @@ function hangman() {
     wordBlank.push('_')
   }
 
-  var rightGuess: string[] = []
-  var wrongGuess: string[] = []
+  var rightGuesses: string[] = []
+  var wrongGuesses: string[] = []
 
   // Start and welcome
   console.log("******************")
@@ -69,14 +98,14 @@ function hangman() {
   while (true) {
 
     // Win check
-    if (!wordBlank.includes("_")){
+    if (!wordBlank.includes("_")) {
       console.log("Congratulations, you won!")
       console.log("The word was %s!", word)
       break
     }
 
     // Game over check
-    if (lives === 0){
+    if (lives === 0) {
       // todo board display
       console.log("The word I was thinking of was: %s\n", word)
       console.log("*********")
@@ -91,25 +120,25 @@ function hangman() {
     console.log("*******\n")
     roundNumber += 1
 
-
+    // Dashboard
     console.log("You have %i live(s)\n", lives)
     // console.log("You have %i live{'s' if lives > 1 else ''} left\n", lives)
     console.log("word:        %s\n", wordBlank.join(" "))
-    console.log("worng:       %s\n", wrongGuess.sort().join(' '))
+    console.log("worng:       %s\n", wrongGuesses.sort().join(' '))
     console.log("letters:     %s\n", lettersRemaining.sort().join(' '))
 
 
+    var playerGuess: string = ''
+
+    var okToPlay: boolean = preCheckGuess(playerGuess, rightGuesses, wrongGuesses, lettersRemaining)
+
+    if (okToPlay) {
+      console.log('Hello World')
+    }
 
 
-
-    console.log(word)
     console.log(wordChars)
-    console.log(lettersRemaining)
-    console.log(lives)
-    console.log(roundNumber)
-    console.log(wordBlank)
-    console.log(rightGuess)
-    console.log(wrongGuess)
+    console.log(rightGuesses)
 
     lives -= 1
   }
