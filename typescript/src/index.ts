@@ -1,8 +1,8 @@
 // in browser
-// import {readFileSync} from 'fs';
+import {readFileSync} from 'fs';
 
 // out of browser
-const {readFileSync, promises: fsPromises} = require('fs');
+// const {readFileSync, promises: fsPromises} = require('fs');
 
 
 const FILE_PATH_WORDS: String = "words.txt"
@@ -12,11 +12,14 @@ const FILE_PATH_WORDS: String = "words.txt"
 function syncReadFile(filename: string)  {
     const contents = readFileSync(filename, 'utf-8');
   
-    const arr = contents.split(/\r?\n/);
+    const words = contents.split(/\r?\n/);
+
+    var word = words[Math.floor(Math.random()*words.length)];
+
   
-    console.log(arr);
+    console.log(word);
   
-    return arr;
+    return word;
   }
 
   syncReadFile("words.txt")

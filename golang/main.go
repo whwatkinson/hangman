@@ -13,7 +13,7 @@ const filePathWords string = "/words.txt"
 
 var lives int = 10
 
-func random_word_generator(filePath string) string {
+func randomWordGenerator(filePath string) string {
 
 	pwd, _ := os.Getwd()
 	data, err := ioutil.ReadFile(pwd + filePath)
@@ -161,7 +161,7 @@ func guessCheck(
 
 func main() {
 	// get word
-	var word = random_word_generator(filePathWords)
+	var word = randomWordGenerator(filePathWords)
 	var wordLength int = len(word)
 	var wordChars = make([]string, wordLength)
 	for i := 0; i < wordLength; i++ {
