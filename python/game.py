@@ -7,7 +7,7 @@ from typing import List, Set
 from python.board import board
 
 
-FILE_PATH_WORDS = path.abspath("../words.txt")
+FILE_PATH_WORDS = path.abspath("words.txt")
 LIVES = 10
 
 
@@ -54,12 +54,12 @@ def pre_check_screen(
 
     # Same letter already guessed and right
     if player_guess in right_guesses:
-        print("Already guessed, it was in there.\n")
+        print(f"Already guessed {player_guess}, it was in there.\n")
         return False
 
     # Same letter already guessed and wrong
     if player_guess in wrong_guesses:
-        print("Already guessed, it was not there.\n")
+        print(f"Already guessed {player_guess}, it was not there.\n")
         return False
 
     # Not a recognised character
@@ -123,7 +123,7 @@ def hangman():
         "x",
         "y",
         "z",
-        "-"
+        "-",
     }
     lives = LIVES
     round_number = 0
@@ -147,7 +147,7 @@ def hangman():
         # Game over check
         if lives == 0:
             for row in board[lives]:
-                print(' '.join(row))
+                print(" ".join(row))
             print(f"The word I was thinking of was: {word}\n")
             print("*********")
             print("GAME OVER")
@@ -161,8 +161,7 @@ def hangman():
         print("*******\n")
 
         for row in board[lives]:
-            print(' '.join(row))
-
+            print(" ".join(row))
 
         print(f"You have {lives} live{'s' if lives > 1 else ''} left\n")
         print(f"word:      {word_blank}\n")

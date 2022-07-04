@@ -132,3 +132,5 @@ dmypy.json
 python/venv
 .idea/
 .DS_Store
+
+typescript/node_modules
