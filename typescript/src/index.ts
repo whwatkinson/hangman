@@ -16,9 +16,18 @@ function randomWordGenerator(filename: string): string {
 }
 
 
+function rightGuess(playerGuess: string, lettersRemaining: string[], wordChars: string[], wordBlank: string[], rightGuesses: string[]): number {
+  return 0
+}
+
+function wrongGuess(playerGuess: string, lettersRemaining: string[], wrongGuess: string[]): number {
+  return -1
+}
+
+
 function preCheckGuess(
   playerGuess: string,
-  rightGuesses: String[],
+  rightGuesses: string[],
   wrongGuesses: string[],
   lettersRemaining: string[]
 ): boolean {
@@ -43,6 +52,20 @@ function preCheckGuess(
 
   return true
 }
+
+
+function guessCheck(playerGuess: string, wordChars: string[], lettersRemaining: string[], wordBlank: string[] ,rightGuesses: string[], wrongGuesses: string[]): number {
+  if (wordChars.includes(playerGuess)) {
+    var livesToRemove = rightGuess(playerGuess, lettersRemaining, wordChars, wordBlank, rightGuesses)
+  }
+  else {
+    var livesToRemove = wrongGuess(playerGuess, lettersRemaining, wrongGuesses)
+  }
+
+  return livesToRemove
+}
+
+
 
 
 function hangman() {
@@ -128,23 +151,28 @@ function hangman() {
     console.log("letters:     %s\n", lettersRemaining.sort().join(' '))
 
 
-    var playerGuess: string = require('readline').createInterface({
-      input: process.stdin,
-      output: process.stdout
-    });
+    // var playerGuess: string = require('readline').createInterface({
+    //   input: process.stdin,
+    //   output: process.stdout
+    // });
+
+    var playerGuess ='a'
 
 
     var okToPlay: boolean = preCheckGuess(playerGuess, rightGuesses, wrongGuesses, lettersRemaining)
 
     if (okToPlay) {
-      console.log('Hello World')
+      
+      lives += guessCheck(
+        playerGuess, wordChars, lettersRemaining,, wordBlank, rightGuesses, wrongGuesses
+      )
+
     }
 
 
     console.log(wordChars)
     console.log(rightGuesses)
 
-    lives -= 1
   }
 }
 
