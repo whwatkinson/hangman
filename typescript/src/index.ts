@@ -2,7 +2,7 @@ import { readFileSync } from 'fs';
 
 
 const FILE_PATH_WORDS: string = "words.txt"
-var LIVES: number = 10
+var LIVES: number = 1
 
 
 function randomWordGenerator(filename: string): string {
@@ -17,17 +17,30 @@ function randomWordGenerator(filename: string): string {
 
 
 function rightGuess(playerGuess: string, lettersRemaining: string[], wordChars: string[], wordBlank: string[], rightGuesses: string[]): number {
+
+  console.log("%s was in the word\n", playerGuess)
+  var indexGuess = lettersRemaining.indexOf(playerGuess)
+  lettersRemaining[indexGuess] = "_"
+
+  rightGuesses.push(playerGuess)
+
+
+
+  for (var i = 0; i < wordChars.length; i++) {
+
+    if (playerGuess === wordChars[i]) {
+      wordBlank[i] = playerGuess
+    }
+  }
+
   return 0
 }
 
 function wrongGuess(playerGuess: string, lettersRemaining: string[], wrongGuess: string[]): number {
 
   console.log("%s, was not in the word\n", playerGuess)
-
   var indexGuess = lettersRemaining.indexOf(playerGuess)
-
   lettersRemaining[indexGuess] = "_"
-
   wrongGuess.push(playerGuess)
 
 
@@ -154,17 +167,25 @@ function hangman() {
     roundNumber += 1
 
     // Dashboard
-    console.log("You have %i live(s)\n", lives)
+    console.log("You have %i live(s)\n", lives ? lives > 2 : "")
     // console.log("You have %i live{'s' if lives > 1 else ''} left\n", lives)
     console.log("word:        %s\n", wordBlank.join(" "))
     console.log("worng:       %s\n", wrongGuesses.sort().join(' '))
     console.log("letters:     %s\n", lettersRemaining.sort().join(' '))
 
 
-    // var playerGuess: string = require('readline').createInterface({
+
+    // const readline = require('readline').createInterface({
     //   input: process.stdin,
-    //   output: process.stdout
+    //   output: process.stdout,
     // });
+    
+    // var playerGuess = readline.question("Have a guess: ", name => {
+    //   readline.close();
+    // });
+    
+    
+    
 
     var playerGuess ='a'
 
@@ -177,7 +198,7 @@ function hangman() {
         playerGuess, wordChars, lettersRemaining, wordBlank, rightGuesses, wrongGuesses
       )
 
-            }
+      }
 
 
     console.log(wordChars)
