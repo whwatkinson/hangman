@@ -21,6 +21,16 @@ function rightGuess(playerGuess: string, lettersRemaining: string[], wordChars: 
 }
 
 function wrongGuess(playerGuess: string, lettersRemaining: string[], wrongGuess: string[]): number {
+
+  console.log("%s, was not in the word\n", playerGuess)
+
+  var indexGuess = lettersRemaining.indexOf(playerGuess)
+
+  lettersRemaining[indexGuess] = "_"
+
+  wrongGuess.push(playerGuess)
+
+
   return -1
 }
 
@@ -164,10 +174,10 @@ function hangman() {
     if (okToPlay) {
       
       lives += guessCheck(
-        playerGuess, wordChars, lettersRemaining,, wordBlank, rightGuesses, wrongGuesses
+        playerGuess, wordChars, lettersRemaining, wordBlank, rightGuesses, wrongGuesses
       )
 
-    }
+            }
 
 
     console.log(wordChars)
