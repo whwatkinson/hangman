@@ -1,5 +1,6 @@
 from os import path
 from random import choice
+from string import ascii_lowercase
 from time import sleep
 from typing import List, Set
 
@@ -96,70 +97,48 @@ def hangman():
     # Set up
     word = random_word_generator(FILE_PATH_WORDS)
     word_chars = [char for char in word]
-    letters_remaining = {
-        "a",
-        "b",
-        "c",
-        "d",
-        "e",
-        "f",
-        "g",
-        "h",
-        "i",
-        "j",
-        "k",
-        "l",
-        "m",
-        "n",
-        "o",
-        "p",
-        "q",
-        "r",
-        "s",
-        "t",
-        "u",
-        "v",
-        "w",
-        "x",
-        "y",
-        "z",
-        "-",
-    }
+    letters_remaining = {char for char in ascii_lowercase}
     lives = LIVES
-    round_number = 0
+    round_number = 1
     word_blank = ["_" for _ in range(len(word))]
     right_guesses = set()
     wrong_guesses = set()
 
     # Start and welcome
-    print("******************")
-    print("Welcome to Hangman")
-    print("******************\n")
+    print("************************************")
+    print("Welcome to Hangman Written in Python")
+    print("************************************\n")
 
     while True:
 
         # Win check
         if "_" not in word_blank:
+            print("\n\n\n\n\n")
+			print("*************************")
             print("Congratulations, you won!")
+            print("*************************\n")
             print(f"The word was {word}!")
             break
 
         # Game over check
         if lives == 0:
-            for row in board[lives]:
-                print(" ".join(row))
-            print(f"The word I was thinking of was: {word}\n")
+            print("\n\n\n\n\n")
             print("*********")
             print("GAME OVER")
             print("*********\n")
+            print(f"The word I was thinking of was: {word}\n")
+            for row in board[lives]:
+                print(" ".join(row))
+
             break
 
         # Round setup
-        round_number += 1
+
         print("*******")
         print(f"Round {round_number}")
         print("*******\n")
-
+        round_number += 1
+        
         for row in board[lives]:
             print(" ".join(row))
 
