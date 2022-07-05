@@ -2,6 +2,7 @@ from os import path
 from random import choice
 from time import sleep
 from typing import List, Set
+from string import ascii_lowercase
 
 
 from python.board import board
@@ -96,35 +97,7 @@ def hangman():
     # Set up
     word = random_word_generator(FILE_PATH_WORDS)
     word_chars = [char for char in word]
-    letters_remaining = {
-        "a",
-        "b",
-        "c",
-        "d",
-        "e",
-        "f",
-        "g",
-        "h",
-        "i",
-        "j",
-        "k",
-        "l",
-        "m",
-        "n",
-        "o",
-        "p",
-        "q",
-        "r",
-        "s",
-        "t",
-        "u",
-        "v",
-        "w",
-        "x",
-        "y",
-        "z",
-        "-",
-    }
+    letters_remaining = {char for char in ascii_lowercase}
     lives = LIVES
     round_number = 0
     word_blank = ["_" for _ in range(len(word))]
@@ -132,9 +105,9 @@ def hangman():
     wrong_guesses = set()
 
     # Start and welcome
-    print("******************")
-    print("Welcome to Hangman")
-    print("******************\n")
+    print("************************************")
+    print("Welcome to Hangman Written in Python")
+    print("************************************\n")
 
     while True:
 

@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 
 
-const FILE_PATH_WORDS: string = "words.txt"
+const FILE_PATH_WORDS: string = "../../words.txt"
 var LIVES: number = 10
 
 
@@ -101,37 +101,10 @@ function guessCheck(playerGuess: string, wordChars: string[], lettersRemaining: 
 
 
 function hangman() {
-  let word: string = randomWordGenerator(FILE_PATH_WORDS)
-  let wordChars: string[] = word.split("")
-  let lettersRemaining: string[] = [
-    "a",
-    "b",
-    "c",
-    "d",
-    "e",
-    "f",
-    "g",
-    "h",
-    "i",
-    "j",
-    "k",
-    "l",
-    "m",
-    "n",
-    "o",
-    "p",
-    "q",
-    "r",
-    "s",
-    "t",
-    "u",
-    "v",
-    "w",
-    "x",
-    "y",
-    "z",
-    "-",
-  ]
+  var word: string = randomWordGenerator(FILE_PATH_WORDS)
+  var wordChars: string[] = word.split("")
+
+  var lettersRemaining = "abcdefghijklmnopqrstuvwxyz".split("")
   var lives: number = LIVES
   var roundNumber: number = 1
   var wordBlank = []
@@ -145,9 +118,9 @@ function hangman() {
   var wrongGuesses: string[] = []
 
   // Start and welcome
-  console.log("******************")
-  console.log("Welcome to Hangman")
-  console.log("******************\n")
+  console.log("***************************************")
+  console.log("Welcome to Hangman Written in TypeScript")
+  console.log("****************************************\n")
 
 
   while (true) {
@@ -170,7 +143,6 @@ function hangman() {
       console.log("GAME OVER")
       console.log("*********\n")
       console.log("The word I was thinking of was: %s\n", word)
-
       break
     }
 
@@ -181,10 +153,7 @@ function hangman() {
     roundNumber += 1
 
     // Dashboard
-    // console.log("You have %i live(s)\n", (lives ? lives > 2 : ""))
-    // console.log("You have %i live%s\n", lives, ("s" ? lives > 2 : ""))
     console.log("You have %i live(s)\n", lives)
-    // console.log("You have %i live{'s' if lives > 1 else ''} left\n", lives)
     console.log("word:        %s\n", wordBlank.join(" "))
     console.log("worng:       %s\n", wrongGuesses.sort().join(' '))
     console.log("letters:     %s\n", lettersRemaining.sort().join(' '))

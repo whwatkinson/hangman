@@ -187,9 +187,9 @@ func main() {
 	var wrongGuesses []string
 	// var wrongGuesses = make([]string, 27)
 
-	fmt.Printf("******************\n")
-	fmt.Printf("Welcome to Hangman\n")
-	fmt.Printf("******************\n")
+	fmt.Printf("*********************************")
+	fmt.Printf("Welcome to Hangman Written in Go!\n")
+	fmt.Printf("*********************************\n")
 
 	// This is now the while loop
 	for {
