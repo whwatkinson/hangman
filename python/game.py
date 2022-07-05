@@ -99,7 +99,7 @@ def hangman():
     word_chars = [char for char in word]
     letters_remaining = {char for char in ascii_lowercase}
     lives = LIVES
-    round_number = 0
+    round_number = 1
     word_blank = ["_" for _ in range(len(word))]
     right_guesses = set()
     wrong_guesses = set()
@@ -113,26 +113,32 @@ def hangman():
 
         # Win check
         if "_" not in word_blank:
+            print("\n\n\n\n\n")
+			print("*************************")
             print("Congratulations, you won!")
+            print("*************************\n")
             print(f"The word was {word}!")
             break
 
         # Game over check
         if lives == 0:
-            for row in board[lives]:
-                print(" ".join(row))
-            print(f"The word I was thinking of was: {word}\n")
+            print("\n\n\n\n\n")
             print("*********")
             print("GAME OVER")
             print("*********\n")
+            print(f"The word I was thinking of was: {word}\n")
+            for row in board[lives]:
+                print(" ".join(row))
+
             break
 
         # Round setup
-        round_number += 1
+
         print("*******")
         print(f"Round {round_number}")
         print("*******\n")
-
+        round_number += 1
+        
         for row in board[lives]:
             print(" ".join(row))
 

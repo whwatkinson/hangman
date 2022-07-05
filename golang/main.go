@@ -188,7 +188,7 @@ func main() {
 	// var wrongGuesses = make([]string, 27)
 
 	fmt.Printf("*********************************")
-	fmt.Printf("Welcome to Hangman Written in Go!\n")
+	fmt.Printf("Welcome to Hangman Written in Go!")
 	fmt.Printf("*********************************\n")
 
 	// This is now the while loop
@@ -196,19 +196,21 @@ func main() {
 
 		// VICTORY CHECK
 		if !stringInSlice(string("_"), wordBlank) {
-			fmt.Printf("\n\n\n*************************\n")
-			fmt.Printf("Congratulations, you won!\n")
-			fmt.Printf("The word I was think of was %v\n", word)
+			fmt.Printf("\n\n\n\n\n")
 			fmt.Printf("*************************\n")
+			fmt.Printf("Congratulations, you won!\n")
+			fmt.Printf("*************************\n")
+			fmt.Printf("The word was %v\n", word)
 			break
 		}
 
 		// GAME OVER CHECK
 		if lives == 0 {
-			fmt.Printf("\n\n\n*********\n")
-			fmt.Printf("GAME OVER\n")
+			fmt.Printf("\n\n\n\n\n")
+			fmt.Printf("*********")
+			fmt.Printf("GAME OVER")
 			fmt.Printf("*********\n")
-			fmt.Printf("The word I was thinking of was: %v\n", word)
+			fmt.Printf("The word i was thinking of was: %v\n", word)
 
 			break
 		}

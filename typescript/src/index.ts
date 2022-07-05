@@ -127,7 +127,7 @@ function hangman() {
 
     // Win check
     if (!wordBlank.includes("_")) {
-      console.log("\n\n\n\n")
+      console.log("\n\n\n\n\n")
       console.log("*************************")
       console.log("Congratulations, you won!")
       console.log("*************************\n")
@@ -138,11 +138,11 @@ function hangman() {
     // Game over check
     if (lives === 0) {
       // todo board display
-      console.log("\n\n\n\n")
+      console.log("\n\n\n\n\n")
       console.log("*********")
       console.log("GAME OVER")
       console.log("*********\n")
-      console.log("The word I was thinking of was: %s\n", word)
+      console.log("The word i was thinking of was: %s\n", word)
       break
     }
 
