@@ -114,7 +114,7 @@ def hangman():
         # Win check
         if "_" not in word_blank:
             print("\n\n\n\n\n")
-			print("*************************")
+            print("*************************")
             print("Congratulations, you won!")
             print("*************************\n")
             print(f"The word was {word}!")
@@ -138,16 +138,17 @@ def hangman():
         print(f"Round {round_number}")
         print("*******\n")
         round_number += 1
-        
+
         for row in board[lives]:
             print(" ".join(row))
 
         print(f"You have {lives} live{'s' if lives > 1 else ''} left\n")
-        print(f"word:      {word_blank}\n")
-        print(f"wrong:     {sorted(list(wrong_guesses))}")
-        print(f"letters:   {sorted(letters_remaining)}\n")
+        print(f"word:      {' '.join(word_blank)}\n")
+        print(f"wrong:     {' '.join(sorted(list(wrong_guesses)))}\n")
+        print(f"letters:   {' '.join(sorted(letters_remaining))}\n")
 
         player_guess = input("Have a guess: ").lower()
+        print('\n')
 
         ok = pre_check_screen(
             player_guess, right_guesses, wrong_guesses, letters_remaining
@@ -165,7 +166,7 @@ def hangman():
             sleep(1.5)
             continue
 
-        sleep(1.5)
+        sleep(1)
 
 
 if __name__ == "__main__":
