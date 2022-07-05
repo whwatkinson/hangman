@@ -2,7 +2,18 @@ import { readFileSync } from 'fs';
 
 
 const FILE_PATH_WORDS: string = "words.txt"
-var LIVES: number = 1
+var LIVES: number = 10
+
+
+
+function playerGuesser(): string {
+
+  var letters: string = "abcdefghijklmnopqrstuvwxyz-"
+
+  var guess: string = letters[Math.floor(Math.random() * letters.length)];
+  
+  return guess
+}
 
 
 function randomWordGenerator(filename: string): string {
@@ -89,8 +100,6 @@ function guessCheck(playerGuess: string, wordChars: string[], lettersRemaining: 
 }
 
 
-
-
 function hangman() {
   let word: string = randomWordGenerator(FILE_PATH_WORDS)
   let wordChars: string[] = word.split("")
@@ -145,7 +154,10 @@ function hangman() {
 
     // Win check
     if (!wordBlank.includes("_")) {
+      console.log("\n\n\n\n")
+      console.log("*************************")
       console.log("Congratulations, you won!")
+      console.log("*************************\n")
       console.log("The word was %s!", word)
       break
     }
@@ -153,42 +165,33 @@ function hangman() {
     // Game over check
     if (lives === 0) {
       // todo board display
-      console.log("The word I was thinking of was: %s\n", word)
+      console.log("\n\n\n\n")
       console.log("*********")
       console.log("GAME OVER")
       console.log("*********\n")
+      console.log("The word I was thinking of was: %s\n", word)
+
       break
     }
 
     // Round setup
-    console.log("*******")
+    console.log("********")
     console.log("Round %s", roundNumber)
-    console.log("*******\n")
+    console.log("********\n")
     roundNumber += 1
 
     // Dashboard
-    console.log("You have %i live(s)\n", lives ? lives > 2 : "")
+    // console.log("You have %i live(s)\n", (lives ? lives > 2 : ""))
+    // console.log("You have %i live%s\n", lives, ("s" ? lives > 2 : ""))
+    console.log("You have %i live(s)\n", lives)
     // console.log("You have %i live{'s' if lives > 1 else ''} left\n", lives)
     console.log("word:        %s\n", wordBlank.join(" "))
     console.log("worng:       %s\n", wrongGuesses.sort().join(' '))
     console.log("letters:     %s\n", lettersRemaining.sort().join(' '))
 
 
-
-    // const readline = require('readline').createInterface({
-    //   input: process.stdin,
-    //   output: process.stdout,
-    // });
-    
-    // var playerGuess = readline.question("Have a guess: ", name => {
-    //   readline.close();
-    // });
-    
-    
-    
-
-    var playerGuess ='a'
-
+    // var playerGuess: string = prompt("What is your name?")
+    var playerGuess: string = playerGuesser()
 
     var okToPlay: boolean = preCheckGuess(playerGuess, rightGuesses, wrongGuesses, lettersRemaining)
 
@@ -199,10 +202,6 @@ function hangman() {
       )
 
       }
-
-
-    console.log(wordChars)
-    console.log(rightGuesses)
 
   }
 }
