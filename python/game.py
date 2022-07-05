@@ -1,8 +1,8 @@
 from os import path
 from random import choice
+from string import ascii_lowercase
 from time import sleep
 from typing import List, Set
-from string import ascii_lowercase
 
 
 from python.board import board
