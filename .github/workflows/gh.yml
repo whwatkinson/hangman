@@ -25,7 +25,21 @@ jobs:
       - name: Trigger Performance Test for a tag
         run: |
           echo "TAG=$(echo "${{ github.ref }}" | cut -d/ -f 3)" >> $GITHUB_ENV
-      - name: echo branch
+
+
+
+
+      - name: Save Tag to GITHUB_ENV
+        # Not in the block below as cannot have run and use in same block
+        if: startsWith(github.ref, 'refs/tags/v')
         run: |
-          echo ${{ env.TAG }}
-          echo "{\"commit\": \"${{ env.TAG }}\", \"branch_name\": \"master\"}"
+          echo "TAG=$(echo "${{ github.ref }}" | cut -d/ -f 3)" >> $GITHUB_ENV
+
+      - name: Trigger Performance Test for a tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: isbang/sqs-action@v0.2.0
+        with:
+          # AWS SQS url to send message
+          sqs-url: https://sqs.us-east-1.amazonaws.com/473683515238/revmo-perf-test-dev
+          # message body to send
+          message: "{\"commit\": \"${{ env.TAG }}\", \"branch_name\": \"master\"}"
