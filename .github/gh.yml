@@ -1,0 +1,39 @@
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Create Env - Run Tests - Deploy EBS & ECR
+
+on:
+  push:
+    branches:
+      - master
+      - qa
+  pull_request:
+    branches: [master]
+  release:
+    types: [published]
+  workflow_dispatch:
+
+# Files in asv_bench/data are stored in Git LFS and should avoid checkout in CI
+# Helps to reduce Git LFS Bandwidth
+env:
+  GIT_LFS_SKIP_SMUDGE: 1
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        python-version: ["3.10"] # Should match Elastic Beanstalk python version since that's running the backend
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Trigger Performance Test for a tag
+
+        uses: isbang/sqs-action@v0.2.0
+        env:
+          TAG: $(echo ${{ github.ref }} | cut -d/ -f 3)
+        run: |
+          echo $TAG
+          echo ${{ env.TAG }}
