@@ -27,8 +27,8 @@ jobs:
         env:
           GH_BRANCH: ${{ github.ref }}
         run: |
-          echo "TAG=$(echo "${TAG_GH}" | cut -d/ -f 3)" >> $GITHUB_ENV
-
+          echo "TAG=$(echo "${GH_BRANCH}" | cut -d/ -f 3)" >> $GITHUB_ENV
+          echo $TAG
       - name: echo branch
         run :
           echo ${{ env.TAG }}
