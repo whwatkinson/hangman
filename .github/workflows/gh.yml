@@ -31,4 +31,4 @@ jobs:
 
       - name: echo branch
         run :
-          echo $TAG
+          echo env.TAG
