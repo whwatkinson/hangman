@@ -16,16 +16,10 @@ on:
 
 # Files in asv_bench/data are stored in Git LFS and should avoid checkout in CI
 # Helps to reduce Git LFS Bandwidth
-env:
-  GIT_LFS_SKIP_SMUDGE: 1
-
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    strategy:
-      matrix:
-        python-version: ["3.10"] # Should match Elastic Beanstalk python version since that's running the backend
     steps:
       - uses: actions/checkout@v3
 
