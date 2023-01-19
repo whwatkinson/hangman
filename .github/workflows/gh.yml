@@ -27,5 +27,6 @@ jobs:
         run: |
           echo "TAG=$(echo "${{ github.ref }}" | cut -d/ -f 3)" >> $GITHUB_ENV
       - name: echo branch
-        run :
+        run: |
           echo ${{ env.TAG }}
+          echo "{\"commit\": \"${{ env.TAG }}\", \"branch_name\": \"master\"}"
