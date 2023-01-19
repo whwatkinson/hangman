@@ -31,4 +31,4 @@ jobs:
 
       - name: echo branch
         run :
-          echo {{ env.TAG }}
+          echo ${{ env.TAG }}
