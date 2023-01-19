@@ -25,7 +25,10 @@ jobs:
 
       - name: Trigger Performance Test for a tag
         env:
-          TAG: $(echo ${{ github.ref }} | cut -d/ -f 3)
+          GH_BRANCH: ${{ github.ref }}
         run: |
+          echo "TAG=$(echo "${TAG_GH}" | cut -d/ -f 3)" >> $GITHUB_ENV
+
+      - name: echo branch
+        run :
           echo $TAG
-          echo ${{ env.TAG }}
