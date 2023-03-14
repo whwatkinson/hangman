@@ -29,9 +29,10 @@ jobs:
 
       - name: Save branch name to GH var
         run: |
-          echo github.event.pull_request.head.ref
+          echo "BRANCH_NAME={{ github.event.pull_request.head.ref }}" >> $GITHUB_ENV
 
       - name: echo branch
+        if: if [ -z "$BRANCH_NAME" ]; then echo "BRANCH_NAME=\"master\"" >> $GITHUB_ENV; fi
         run: |
           echo ${{ env.TAG }}
-          echo "{\"commit\": \"${{ github.event.pull_request.head.sha }}\", \"branch_name\": \"${{ github.event.pull_request.head.ref }}\", \"tag_name\": \"${{ env.TAG }}\"}"
+          echo "{\"commit\": \"${{ github.event.pull_request.head.sha }}\", \"branch_name\": \"${{ env.BRANCH_NAME }}\", \"tag_name\": \"${{ env.TAG }}\"}"
