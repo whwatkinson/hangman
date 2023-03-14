@@ -33,7 +33,7 @@ jobs:
 
       - name: Replace Empty branch name with master
         run: |
-          if [ -z "$BRANCH_NAME" ];
+          if [ -z "${{ env.BRANCH_NAME }}" ];
           then echo "BRANCH_NAME=\"master\"" >> $GITHUB_ENV;
           fi
 
