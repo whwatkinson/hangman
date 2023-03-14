@@ -31,8 +31,11 @@ jobs:
         run: |
           echo "BRANCH_NAME={{ github.event.pull_request.head.ref }}" >> $GITHUB_ENV
 
-      - name: echo branch
-        if: if [ -z "$BRANCH_NAME" ]; then echo "BRANCH_NAME=\"master\"" >> $GITHUB_ENV; fi
+      - name: Replace Empty branch name with master
+        if: [ -z "$BRANCH_NAME" ]
         run: |
-          echo ${{ env.TAG }}
+          then echo "BRANCH_NAME=\"master\"" >> $GITHUB_ENV; fi
+
+      - name: echo branch
+        run: |
           echo "{\"commit\": \"${{ github.event.pull_request.head.sha }}\", \"branch_name\": \"${{ env.BRANCH_NAME }}\", \"tag_name\": \"${{ env.TAG }}\"}"
