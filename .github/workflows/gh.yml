@@ -22,10 +22,16 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v3
-      - name: Trigger Performance Test for a tag
+      - name: Save tag name to GH var
+        if: startsWith(github.ref, 'refs/tags/v')
         run: |
           echo "TAG=$(echo "${{ github.ref }}" | cut -d/ -f 3)" >> $GITHUB_ENV
+
+      - name: Save branch name to GH var
+        run: |
+          echo github.event.pull_request.head.ref
+
       - name: echo branch
         run: |
           echo ${{ env.TAG }}
-          echo "{\"commit\": \"${{ env.TAG }}\", \"branch_name\": \"master\"}"
+          echo "{\"commit\": \"${{ github.event.pull_request.head.sha }}\", \"branch_name\": \"${{ github.event.pull_request.head.ref }}\", \"tag_name\": \"${{ env.TAG }}\"}"
