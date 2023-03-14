@@ -27,12 +27,9 @@ jobs:
         run: |
           echo "TAG=$(echo "${{ github.ref }}" | cut -d/ -f 3)" >> $GITHUB_ENV
 
-      - name: Save branch name to GH var
-        run: |
-          echo "BRANCH_NAME=$(echo "${{ github.event.pull_request.head.ref }}")" >> $GITHUB_ENV
-
       - name: Replace Empty branch name with master
         run: |
+          echo "BRANCH_NAME=$(echo "${{ github.event.pull_request.head.ref }}")" >> $GITHUB_ENV
           if [ -z "${{ env.BRANCH_NAME }}" ];
           then echo "BRANCH_NAME=\"master\"" >> $GITHUB_ENV;
           fi
