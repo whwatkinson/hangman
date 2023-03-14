@@ -34,4 +34,4 @@ jobs:
       - name: echo branch
         run: |
           echo ${{ env.TAG }}
-          echo"{\"commit\": \"${{ github.event.pull_request.head.sha }}\", \"branch_name\": \"${{ github.event.pull_request.head.ref }}\", \"tag_name\": \"${{ env.TAG }}\"}"
+          echo "{\"commit\": \"${{ github.event.pull_request.head.sha }}\", \"branch_name\": \"${{ github.event.pull_request.head.ref }}\", \"tag_name\": \"${{ env.TAG }}\"}"
