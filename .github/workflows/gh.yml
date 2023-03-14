@@ -29,7 +29,6 @@ jobs:
 
       - name: Save branch name to GH var
         run: |
-#          echo "BRANCH_NAME={{ "github.event.pull_request.head.ref" }}" >> $GITHUB_ENV
           echo "BRANCH_NAME=$(echo "${{ github.event.pull_request.head.ref }}")" >> $GITHUB_ENV
 
       - name: Replace Empty branch name with master
