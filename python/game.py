@@ -114,7 +114,7 @@ def hangman():
         # Win check
         if "_" not in word_blank:
             print("\n\n\n\n\n")
-			print("*************************")
+            print("*************************")
             print("Congratulations, you won!")
             print("*************************\n")
             print(f"The word was {word}!")
