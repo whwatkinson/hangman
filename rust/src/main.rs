@@ -1,6 +1,14 @@
+use std::fs;
+
+
+const FILE_PATH_WORDS: &str = "../words.txt";
+const LIVES: i32 = 10;
+
+
 
 fn random_word_generator(file_path: &str) -> &str {
-    println!("{}", file_path);
+    let data = fs::read_to_string(file_path).expect("Unable to read file");
+    println!("{}", data);
     return "asd"
 }
 
@@ -44,5 +52,5 @@ fn guess_check(
 }
 
 fn main() {
-    random_word_generator("Hello, world!");
+    random_word_generator(FILE_PATH_WORDS);
 }
